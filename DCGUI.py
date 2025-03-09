@@ -1,12 +1,117 @@
 import tkinter as tk
+import sys
 from DecimalConverter import DecimalConverter as DC
 from PySide6 import QtCore, QtWidgets, QtGui
 
 class CalculatorGUI(QtWidgets.QWidget):
     def __init__(self):
         super().__init__()
+        self.setWindowTitle("Conversion Calculator")
+        self.resize(450, 600)
+        self.Buttons = QtWidgets.QButtonGroup(self)
+        self.layout = QtWidgets.QGridLayout(self)
+        self.addButtons()
         
+        
+        
+        
+        
+    def addButtons(self):
+        
+        btn1 = QtWidgets.QPushButton("1")
+        self.Buttons.addButton(btn1)
+        
+        btn2 = QtWidgets.QPushButton("2")
+        self.Buttons.addButton(btn2)
+        
+        btn3 = QtWidgets.QPushButton("3")
+        self.Buttons.addButton(btn3)
+        
+        btnAdd = QtWidgets.QPushButton("+")
+        self.Buttons.addButton(btnAdd)
+        
+        btn4 = QtWidgets.QPushButton("4")
+        self.Buttons.addButton(btn4)
+        
+        btn5 = QtWidgets.QPushButton("5")
+        self.Buttons.addButton(btn5)
+        
+        btn6 = QtWidgets.QPushButton("6")
+        self.Buttons.addButton(btn6)
+        
+        btnSub = QtWidgets.QPushButton("-")
+        self.Buttons.addButton(btnSub)
+        
+        btn7 = QtWidgets.QPushButton("7")
+        self.Buttons.addButton(btn7)
+        
+        btn8 = QtWidgets.QPushButton("8")
+        self.Buttons.addButton(btn8)
+        
+        btn9 = QtWidgets.QPushButton("9")
+        self.Buttons.addButton(btn9)
+        
+        btnMul = QtWidgets.QPushButton("x")
+        self.Buttons.addButton(btnMul)
+        
+        btn0 = QtWidgets.QPushButton("0")
+        self.Buttons.addButton(btn0)
+        
+        btnA = QtWidgets.QPushButton("A")
+        self.Buttons.addButton(btnA)
+        
+        btnB = QtWidgets.QPushButton("B")
+        self.Buttons.addButton(btnB)
+        
+        btnDiv = QtWidgets.QPushButton("/")
+        self.Buttons.addButton(btnDiv)
+        
+        btnC = QtWidgets.QPushButton("C")
+        self.Buttons.addButton(btnC)
+        
+        btnD = QtWidgets.QPushButton("D")
+        self.Buttons.addButton(btnD)
+        
+        btnE = QtWidgets.QPushButton("E")
+        self.Buttons.addButton(btnE)
+        
+        btnF = QtWidgets.QPushButton("F")
+        self.Buttons.addButton(btnF)
+        
+        btnDeci = QtWidgets.QPushButton("Decimal")
+        self.Buttons.addButton(btnDeci)
+        
+        btnBin = QtWidgets.QPushButton("Binary")
+        self.Buttons.addButton(btnBin)
+        
+        btnOct = QtWidgets.QPushButton("Octal")
+        self.Buttons.addButton(btnOct)
+        
+        btnHex = QtWidgets.QPushButton("Hexidecimal")
+        self.Buttons.addButton(btnHex)
+        
+        btnEqual = QtWidgets.QPushButton("=")
+        self.Buttons.addButton(btnEqual)
+        
+        btnClear = QtWidgets.QPushButton("Clear")
+        self.Buttons.addButton(btnClear)
+        
+        x, y, i = 0, 0, 0
+        for button in self.Buttons.buttons():
+            x = int(i / 4)
+            y = i % 4
+            self.layout.addWidget(button, x, y)
+            i += 1
     
+    
+    
+if __name__ == "__main__":
+    app = QtWidgets.QApplication([])
+    
+    widget = CalculatorGUI()
+    widget.show()
+    
+    sys.exit(app.exec())
 
 """
 class CalculatorGUI:
