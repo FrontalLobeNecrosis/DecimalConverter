@@ -1,6 +1,14 @@
 import tkinter as tk
 from DecimalConverter import DecimalConverter as DC
+from PySide6 import QtCore, QtWidgets, QtGui
 
+class CalculatorGUI(QtWidgets.QWidget):
+    def __init__(self):
+        super().__init__()
+        
+    
+
+"""
 class CalculatorGUI:
     def __init__(self):
         
@@ -443,3 +451,4 @@ class CalculatorGUI:
         
 if __name__ == "__main__":
     CalculatorGUI()
+    """
