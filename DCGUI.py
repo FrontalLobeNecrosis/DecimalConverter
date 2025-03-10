@@ -11,89 +11,450 @@ class CalculatorGUI(QtWidgets.QWidget):
         self.Buttons = QtWidgets.QButtonGroup(self)
         self.layout = QtWidgets.QGridLayout(self)
         self.addButtons()
+        self.numberstr1 = ''
+        self.isNum1Done = False
+        self.numberstr2 = ''
+        self.result = ''
+        self.base1 = 'd'
+        self.base2 = 'd'
+        self.operator = ''
+        self.converter = DC()
+        self.isCalculated = False
         
         
+    def setBase(self, base):
+        if self.isNum1Done == False and self.numberstr1 == '':
+            if base == 'd':
+                self.base1 = 'd'
+            elif base == 'b':
+                self.base1 = 'b'
+            elif base == 'o':
+                self.base1 = 'o'
+            elif base == 'h':
+                self.base1 = 'h'
+        elif self.isCalculated == True and self.operator == '':
+            if base == 'd':
+                match self.base1:
+                    case 'b':
+                        self.numberstr1 = self.converter.convertFromBinary(self.numberstr1)
+                    case 'o':
+                        self.numberstr1 = self.converter.convertFromOctal(self.numberstr1)
+                    case 'h':
+                        self.numberstr1 = self.converter.convertFromHex(self.numberstr1)
+                self.base1 = 'd'
+            elif base == 'b':
+                match self.base1:
+                    case 'd':
+                        self.numberstr1 = self.converter.convertToBinary(int(self.numberstr1))
+                    case 'o':
+                        self.numberstr1 = self.converter.convertToBinary(int(self.converter.convertFromOctal(self.numberstr1)))
+                    case 'h':
+                        self.numberstr1 = self.converter.convertToBinary(int(self.converter.convertFromHex(self.numberstr1)))
+                self.base1 = 'b'
+            elif base == 'o':
+                match self.base1:
+                    case 'd':
+                        self.numberstr1 = self.converter.convertToOctal(int(self.numberstr1))
+                    case 'b':
+                        self.numberstr1 = self.converter.convertToOctal(int(self.converter.convertFromBinary(self.numberstr1)))
+                    case 'h':
+                        self.numberstr1 = self.converter.convertToOctal(int(self.converter.convertFromHex(self.numberstr1)))
+                self.base1 = 'o'
+            elif base == 'h':
+                match self.base1:
+                    case 'd':
+                        self.numberstr1 = self.converter.convertToHex(int(self.numberstr1))
+                    case 'b':
+                        self.numberstr1 = self.converter.convertToHex(int(self.converter.convertFromBinary(self.numberstr1)))
+                    case 'o':
+                        self.numberstr1 = self.converter.convertToHex(int(self.converter.convertFromOctal(self.numberstr1)))
+                self.base1 = 'h'
+            self.entry.delete(0, 'end')
+            self.entry.insert(0, self.numberstr1)
+        elif self.isNum1Done == True and self.numberstr2 == '':
+            if base == 'd':
+                self.base2 = 'd'
+            elif base == 'b':
+                self.base2 = 'b'
+            elif base == 'o':
+                self.base2 = 'o'
+            elif base == 'h':
+                self.base2 = 'h'
+                
+        
+    def setDecimal(self):
+        self.setBase('d')
+        
+    def setBinary(self):
+        self.setBase('b')
+        
+    def setOctal(self):
+        self.setBase('o')
+    
+    def setHexadecimal(self):
+        self.setBase('h')
+        
+    def setOperator(self, operator):
+        if self.isNum1Done == False:
+            self.operator = operator
+            self.isNum1Done = True
+            self.entry.delete(0, 'end')
+        
+    def setAdd(self):
+        self.setOperator('+')
+        
+    def setSubtract(self):
+        self.setOperator('-')
+        
+    def setMultiply(self):
+        self.setOperator('x')
+        
+    def setDivide(self):
+        self.setOperator('/')
+        
+    def addNumberToString(self, value):
+        if self.isNum1Done == False and self.isCalculated == False:
+            if self.numberstr1 != '' :
+                self.entry.delete(0, "end")
+            self.numberstr1 += value
+            self.entry.insert(0, self.numberstr1)
+        else:
+            if self.numberstr2 != '':
+                self.entry.delete(0, "end")
+            self.numberstr2 += value
+            self.entry.insert(0, self.numberstr2)
+        
+    def clear(self):
+        self.numberstr1 = ''
+        self.numberstr2 = ''
+        self.isNum1Done = False
+        self.entry.delete(0, "end")
+        self.isCalculated = False
+        
+    def add1(self):
+        self.addNumberToString('1')
+    
+    def add2(self):
+        if self.isNum1Done == False:
+            if self.base1 == 'b':
+                pass
+            else:
+                self.addNumberToString('2')
+        else:
+            if self.base2 == 'b':
+                pass
+            else:
+                self.addNumberToString('2')
+        
+    
+    def add3(self):
+        if self.isNum1Done == False:
+            if self.base1 == 'b':
+                pass
+            else:
+                self.addNumberToString('3')
+        else:
+            if self.base2 == 'b':
+                pass
+            else:
+                self.addNumberToString('3')
+        
+    
+    def add4(self):
+        if self.isNum1Done == False:
+            if self.base1 == 'b':
+                pass
+            else:
+                self.addNumberToString('4')
+        else:
+            if self.base2 == 'b':
+                pass
+            else:
+                self.addNumberToString('4')
         
         
+    def add5(self):
+        if self.isNum1Done == False:
+            if self.base1 == 'b':
+                pass
+            else:
+                self.addNumberToString('5')
+        else:
+            if self.base2 == 'b':
+                pass
+            else:
+                self.addNumberToString('5')
+        
+        
+    def add6(self):
+        if self.isNum1Done == False:
+            if self.base1 == 'b':
+                pass
+            else:
+                self.addNumberToString('6')
+        else:
+            if self.base2 == 'b':
+                pass
+            else:
+                self.addNumberToString('6')
+        
+        
+    def add7(self):
+        if self.isNum1Done == False:
+            if self.base1 == 'b':
+                pass
+            else:
+                self.addNumberToString('7')
+        else:
+            if self.base2 == 'b':
+                pass
+            else:
+                self.addNumberToString('7')
+        
+    def add8(self):
+        if self.isNum1Done == False:
+            if self.base1 != 'h' and self.base1 != 'd':
+                pass
+            else:
+                self.addNumberToString('8')
+        else:
+            if self.base2 != 'h' and self.base2 != 'd':
+                pass
+            else:
+                self.addNumberToString('8')
+        
+    def add9(self):
+        if self.isNum1Done == False:
+            if self.base1 != 'h' and self.base1 != 'd':
+                pass
+            else:
+                self.addNumberToString('9')
+        else:
+            if self.base2 != 'h' and self.base2 != 'd':
+                pass
+            else:
+                self.addNumberToString('9')
+        
+    def addA(self):
+        if self.isNum1Done == False:
+            if self.base1 != 'h':
+                pass
+            else:
+                self.addNumberToString('A')
+        else:
+            if self.base2 != 'h':
+                pass
+            else:
+                self.addNumberToString('A')
+        
+    def addB(self):
+        if self.isNum1Done == False:
+            if self.base1 != 'h':
+                pass
+            else:
+                self.addNumberToString('B')
+        else:
+            if self.base2 != 'h':
+                pass
+            else:
+                self.addNumberToString('B')
+        
+    def addC(self):
+        if self.isNum1Done == False:
+            if self.base1 != 'h':
+                pass
+            else:
+                self.addNumberToString('C')
+        else:
+            if self.base2 != 'h':
+                pass
+            else:
+                self.addNumberToString('C')
+        
+    def addD(self):
+        if self.isNum1Done == False:
+            if self.base1 != 'h':
+                pass
+            else:
+                self.addNumberToString('D')
+        else:
+            if self.base2 != 'h':
+                pass
+            else:
+                self.addNumberToString('D')
+        
+    def addE(self):
+        if self.isNum1Done == False:
+            if self.base1 != 'h':
+                pass
+            else:
+                self.addNumberToString('E')
+        else:
+            if self.base2 != 'h':
+                pass
+            else:
+                self.addNumberToString('E')
+        
+    def addF(self):
+        if self.isNum1Done == False:
+            if self.base1 != 'h':
+                pass
+            else:
+                self.addNumberToString('F')
+        else:
+            if self.base2 != 'h':
+                pass
+            else:
+                self.addNumberToString('F')
+    
+    def add0(self):
+        self.addNumberToString('0')
+        
+    def calculate(self):
+        if self.numberstr2 != '':
+            decimal1 = self.numberstr1
+            decimal2 = self.numberstr2
+            
+            if self.base1 == 'b':
+                decimal1 = self.converter.convertFromBinary(self.numberstr1)
+            elif self.base1 == 'o':
+                decimal1 = self.converter.convertFromOctal(self.numberstr1)
+            elif self.base1 == 'h':
+                decimal1 = self.converter.convertFromHex(self.numberstr1)
+                
+            if self.base2 == 'b':
+                decimal2 = self.converter.convertFromBinary(self.numberstr2)
+            elif self.base2 == 'o':
+                decimal2 = self.converter.convertFromOctal(self.numberstr2)
+            elif self.base2 == 'h':
+                decimal2 = self.converter.convertFromHex(self.numberstr2)
+                
+            if self.operator == '+':
+                self.result = int(decimal1) + int(decimal2)
+            elif self.operator == '-':
+                self.result = int(decimal1) - int(decimal2)
+                if self.result < 0:
+                    self.result = 0
+            elif self.operator == 'x':
+                self.result = int(decimal1) * int(decimal2)
+            elif self.operator == '/':
+                if decimal2 == '0':
+                    decimal2 = '1'
+                self.result = int(decimal1) / int(decimal2)
+            
+            self.numberstr1 = str(int(self.result))
+            self.base1 = 'd'
+            self.entry.delete(0, 'end')
+            self.entry.insert(0, self.numberstr1)
+            self.isCalculated = True
+            self.isNum1Done = False
+            self.numberstr2 = ''
+            self.operator = ''
         
     def addButtons(self):
         
         btn1 = QtWidgets.QPushButton("1")
+        btn1.clicked.connect(self.add1)
         self.Buttons.addButton(btn1)
         
         btn2 = QtWidgets.QPushButton("2")
+        btn1.clicked.connect(self.add2)
         self.Buttons.addButton(btn2)
         
         btn3 = QtWidgets.QPushButton("3")
+        btn1.clicked.connect(self.add3)
         self.Buttons.addButton(btn3)
         
         btnAdd = QtWidgets.QPushButton("+")
+        btn1.clicked.connect(self.setAdd)
         self.Buttons.addButton(btnAdd)
         
         btn4 = QtWidgets.QPushButton("4")
+        btn1.clicked.connect(self.add4)
         self.Buttons.addButton(btn4)
         
         btn5 = QtWidgets.QPushButton("5")
+        btn1.clicked.connect(self.add5)
         self.Buttons.addButton(btn5)
         
         btn6 = QtWidgets.QPushButton("6")
+        btn1.clicked.connect(self.add6)
         self.Buttons.addButton(btn6)
         
         btnSub = QtWidgets.QPushButton("-")
+        btn1.clicked.connect(self.setSubtract)
         self.Buttons.addButton(btnSub)
         
         btn7 = QtWidgets.QPushButton("7")
+        btn1.clicked.connect(self.add7)
         self.Buttons.addButton(btn7)
         
         btn8 = QtWidgets.QPushButton("8")
+        btn1.clicked.connect(self.add8)
         self.Buttons.addButton(btn8)
         
         btn9 = QtWidgets.QPushButton("9")
+        btn1.clicked.connect(self.add9)
         self.Buttons.addButton(btn9)
         
         btnMul = QtWidgets.QPushButton("x")
+        btn1.clicked.connect(self.setMultiply)
         self.Buttons.addButton(btnMul)
         
         btn0 = QtWidgets.QPushButton("0")
+        btn1.clicked.connect(self.add0)
         self.Buttons.addButton(btn0)
         
         btnA = QtWidgets.QPushButton("A")
+        btn1.clicked.connect(self.addA)
         self.Buttons.addButton(btnA)
         
         btnB = QtWidgets.QPushButton("B")
+        btn1.clicked.connect(self.addB)
         self.Buttons.addButton(btnB)
         
         btnDiv = QtWidgets.QPushButton("/")
+        btn1.clicked.connect(self.setDivide)
         self.Buttons.addButton(btnDiv)
         
         btnC = QtWidgets.QPushButton("C")
+        btn1.clicked.connect(self.addC)
         self.Buttons.addButton(btnC)
         
         btnD = QtWidgets.QPushButton("D")
+        btn1.clicked.connect(self.addD)
         self.Buttons.addButton(btnD)
         
         btnE = QtWidgets.QPushButton("E")
+        btn1.clicked.connect(self.addE)
         self.Buttons.addButton(btnE)
         
         btnF = QtWidgets.QPushButton("F")
+        btn1.clicked.connect(self.addF)
         self.Buttons.addButton(btnF)
         
         btnDeci = QtWidgets.QPushButton("Decimal")
+        btn1.clicked.connect(self.setDecimal)
         self.Buttons.addButton(btnDeci)
         
         btnBin = QtWidgets.QPushButton("Binary")
+        btn1.clicked.connect(self.setBinary)
         self.Buttons.addButton(btnBin)
         
         btnOct = QtWidgets.QPushButton("Octal")
+        btn1.clicked.connect(self.setOctal)
         self.Buttons.addButton(btnOct)
         
         btnHex = QtWidgets.QPushButton("Hexidecimal")
+        btn1.clicked.connect(self.setHexadecimal)
         self.Buttons.addButton(btnHex)
         
         btnEqual = QtWidgets.QPushButton("=")
+        btn1.clicked.connect(self.calculate)
         self.Buttons.addButton(btnEqual)
         
         btnClear = QtWidgets.QPushButton("Clear")
+        btn1.clicked.connect(self.clear)
         self.Buttons.addButton(btnClear)
         
         x, y, i = 0, 0, 0
